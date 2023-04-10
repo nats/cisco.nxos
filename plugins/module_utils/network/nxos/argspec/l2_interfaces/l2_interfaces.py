@@ -54,6 +54,12 @@ class L2_interfacesArgs(object):  # pylint: disable=R0903
                     },
                     "type": "dict",
                 },
+                "block_multicast": {"type": "bool"},
+                "block_unicast": {"type": "bool"},
+                "port_type": {
+                    "type": "str",
+                    "choices": ["network", "normal", "edge", "edge trunk", None],
+                },
             },
             "type": "list",
         },

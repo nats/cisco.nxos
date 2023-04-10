@@ -276,6 +276,12 @@ class L2_interfaces(ConfigBase):
             commands.append(cmd + "trunk allowed vlan")
         if "native_vlan" in obj:
             commands.append(cmd + "trunk native vlan")
+        if "block_multicast" in obj:
+            commands.append(cmd + "block multicast")
+        if "block_unicast" in obj:
+            commands.append(cmd + "block unicast")
+        if "port_type" in obj:
+            commands.append("no spanning-tree port type")
         if commands:
             commands.insert(0, "interface " + obj["name"])
         return commands
@@ -304,6 +310,12 @@ class L2_interfaces(ConfigBase):
                 commands.append(cmd + "trunk allowed vlan " + str(d["allowed_vlans"]))
         if "native_vlan" in d:
             commands.append(cmd + "trunk native vlan " + str(d["native_vlan"]))
+        if "block_multicast" in d:
+            commands.append(cmd + "block multicast")
+        if "block_unicast" in d:
+            commands.append(cmd + "block unicast")
+        if "port_type" in d:
+            commands.append("spanning-tree port type {0}".format(d["port_type"]))
         if commands:
             commands.insert(0, "interface " + d["name"])
         return commands

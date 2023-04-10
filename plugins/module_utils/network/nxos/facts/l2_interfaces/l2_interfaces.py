@@ -100,5 +100,8 @@ class L2_interfacesFacts(object):
             "switchport trunk allowed vlan",
         )
         config["trunk"]["native_vlan"] = utils.parse_conf_arg(conf, "switchport trunk native vlan")
+        config["block_multicast"] = utils.parse_conf_cmd_arg(conf, "switchport block multicast", True)
+        config["block_unicast"] = utils.parse_conf_cmd_arg(conf, "switchport block unicast", True)
+        config["port_type"] = utils.parse_conf_arg(conf, "spanning-tree port type")
 
         return utils.remove_empties(config)
