@@ -328,11 +328,11 @@ class L2_interfaces(ConfigBase):
             commands = self.add_commands(w)
         else:
             diff = self.diff_of_dicts(w, obj_in_have)
+            # "access" is default when missing from `have`
+            if diff and "mode" not in obj_in_have and diff.get("mode") == "access":
+                del diff["mode"]
             if diff and not replace:
                 if "mode" in diff.keys() and diff["mode"]:
-                    # "access" is default when missing from `have`
-                    if "mode" not in obj_in_have and diff["mode"] == "access":
-                        del diff["mode"]
                     commands = self.add_commands(diff)
                 if "allowed_vlans" in diff.keys() and diff["allowed_vlans"]:
                     vlan_tobe_added = diff["allowed_vlans"].split(",")
