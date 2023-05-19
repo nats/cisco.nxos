@@ -107,7 +107,7 @@ class L2_interfaces(ConfigBase):
             result["parsed"] = self.get_l2_interfaces_facts(data=running_config)
 
         if self.state in self.ACTION_STATES:
-            result["before"] = existing_l2_interfaces_facts
+            result["before"] = self._sanitize(existing_l2_interfaces_facts)
             if result["changed"]:
                 result["after"] = changed_l2_interfaces_facts
 
@@ -139,6 +139,15 @@ class L2_interfaces(ConfigBase):
         self._reconstruct_commands(resp)
 
         return resp
+
+    def _sanitize(self, l2_interfaces):
+        sanitized_l2_interfaces = []
+        for d in l2_interfaces:
+            if "trunk" in d and d["trunk"]:
+                if "allowed_vlans" in d["trunk"]:
+                    d["trunk"]["allowed_vlans"] = vlan_list_to_range(d["trunk"]["allowed_vlans"].split(","))
+            sanitized_l2_interfaces.append(d)
+        return sanitized_l2_interfaces
 
     def expand_trunk_allowed_vlans(self, d):
         if not d:
