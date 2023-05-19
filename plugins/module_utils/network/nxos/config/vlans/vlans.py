@@ -119,7 +119,7 @@ class Vlans(ConfigBase):
         if self.state in self.ACTION_STATES:
             result["before"] = existing_vlans_facts
             if result["changed"]:
-                result["after"] = changed_vlans_facts
+                result["after"] = self._sanitize(changed_vlans_facts)
 
         elif self.state == "gathered":
             result["gathered"] = changed_vlans_facts
