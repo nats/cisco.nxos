@@ -291,6 +291,8 @@ class L2_interfaces(ConfigBase):
             commands.append(cmd + "block unicast")
         if "port_type" in obj:
             commands.append("no spanning-tree port type")
+        if "bpdufilter" in obj:
+            commands.append("no spanning-tree bpdufilter")
         if commands:
             commands.insert(0, "interface " + obj["name"])
         return commands
@@ -325,6 +327,8 @@ class L2_interfaces(ConfigBase):
             commands.append(cmd + "block unicast")
         if "port_type" in d:
             commands.append("spanning-tree port type {0}".format(d["port_type"]))
+        if "bpdufilter" in d:
+            commands.append("spanning-tree bpdufilter {0}".format(d["bpdufilter"]))
         if commands:
             commands.insert(0, "interface " + d["name"])
         return commands

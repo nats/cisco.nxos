@@ -60,6 +60,10 @@ class L2_interfacesArgs(object):  # pylint: disable=R0903
                     "type": "str",
                     "choices": ["network", "normal", "edge", "edge trunk", None],
                 },
+                "bpdufilter": {
+                    "type": "str",
+                    "choices": ["enable", "disable", None],
+                },
             },
             "type": "list",
         },
