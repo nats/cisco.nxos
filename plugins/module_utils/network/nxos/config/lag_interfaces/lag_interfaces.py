@@ -310,7 +310,7 @@ class Lag_interfaces(ConfigBase):
         commands = []
         obj_in_have = search_obj_in_list(w["name"], have, "name")
         if obj_in_have:
-            lst_to_del = self.intersect_list_of_dicts(w["members"], obj_in_have["members"])
+            lst_to_del = self.intersect_list_of_dicts(w["members"], obj_in_have["members"] or [])
             if lst_to_del:
                 for item in lst_to_del:
                     commands.append("interface" + " " + item["member"])
